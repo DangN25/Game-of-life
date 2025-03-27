@@ -3,7 +3,7 @@ import time
 import pygame 
 import numpy as np 
 
-#------------------------------------[Setting] 
+#------------------------------------[Settings] 
 FPS= .01
 size_of_cell= 15
 col_of_cells= 80
@@ -16,7 +16,7 @@ COLOR_DIE_NEXT= (170, 170, 170)
 COLOR_ALIVE_NEXT= (255, 255, 255)
 
 
-#------------------------------------------------[Update Function]
+#----------------------------------------------------------------------------[Update Function]
 def update(screen, cells, size, pause=False):
     update_cells= np.zeros((cells.shape[0], cells.shape[1]))
 
@@ -41,7 +41,7 @@ def update(screen, cells, size, pause=False):
         pygame.draw.rect(screen, color, (col*size, row*size, size-1, size-1))
     return update_cells
 
-#------------------------------------------------[Main Function]
+#------------------------------------------------------------------------------------------------[Main Function]
 def main():
     pygame.init()
     screen = pygame.display.set_mode((col_of_cells*size_of_cell, row_of_cells*size_of_cell))
