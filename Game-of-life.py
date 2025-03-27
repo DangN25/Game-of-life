@@ -45,8 +45,9 @@ def update(screen, cells, size, pause=False):
 def main():
     pygame.init()
     screen = pygame.display.set_mode((col_of_cells*size_of_cell, row_of_cells*size_of_cell))
-
     cells= np.zeros((row_of_cells, col_of_cells))
+    remove_mode= False
+
     screen.fill(COLOR_GRID)
     update(screen, cells, size_of_cell)
 
@@ -59,13 +60,24 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return 
+            
+            # toggle [pause/start] and [placing/removing] cells
             elif event.type == pygame.KEYDOWN:
                 if  event.key == pygame.K_SPACE:
                     running = not running
                     update(screen, cells, size_of_cell)
-            if pygame.mouse.get_pressed()[0]:
+                if  event.key == pygame.K_BACKSPACE:
+                    remove_mode= not remove_mode
+            
+            # [placing/removing] cells at mouse position
+            if pygame.mouse.get_pressed()[0] and remove_mode==False:
                 pos = pygame.mouse.get_pos()
-                cells[pos[1]//size_of_cell, pos[0]//size_of_cell] = 1
+                cells[pos[1]//size_of_cell, pos[0]//size_of_cell] = 1 
+                update(screen, cells, size_of_cell)
+                pygame.display.update()
+            elif pygame.mouse.get_pressed()[0] and remove_mode==True:
+                pos = pygame.mouse.get_pos()
+                cells[pos[1]//size_of_cell, pos[0]//size_of_cell] = 0 
                 update(screen, cells, size_of_cell)
                 pygame.display.update()
 
